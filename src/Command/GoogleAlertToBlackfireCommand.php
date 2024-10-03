@@ -25,7 +25,7 @@ use App\Services\BlackfireGoogleAlerts;
 class GoogleAlertToBlackfireCommand extends Command
 {
     public function __construct(
-        private BlackfireGoogleAlerts           $blackfireGoogleAlerts,
+        private BlackfireGoogleAlerts $blackfireGoogleAlerts,
     )
     {
         parent::__construct();
@@ -34,13 +34,12 @@ class GoogleAlertToBlackfireCommand extends Command
     protected function configure(): void
     {
     }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
         $this->blackfireGoogleAlerts->processRssFeed();
-        
+
         $io->success('Feeds imported');
 
         return Command::SUCCESS;

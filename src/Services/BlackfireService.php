@@ -35,7 +35,7 @@ class BlackfireService
                     'Content-type' => 'application/json',
                     'Authorization' => 'Basic ' . base64_encode($this->blackfireServerId . ':' . $this->blackfireServerToken),
                 ],
-                'json' => ['name' => $feed->getTitle()]
+                'json' => ['name' => $feed->getTitle(), 'timestamp' => $feed->getPublished()->getTimestamp()]
             ]
         );
 
