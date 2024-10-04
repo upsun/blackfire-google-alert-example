@@ -22,7 +22,6 @@ applications:
                 - sodium
                 - xsl
                 
-
         variables:
             php:
                 opcache.preload: config/preload.php
