@@ -18,7 +18,8 @@
         "symfony/http-client": "7.1.*",
         "symfony/runtime": "7.1.*",
         "symfony/yaml": "7.1.*",
-        "symfonycorp/platformsh-meta": "^1.0"
+        "symfonycorp/platformsh-meta": "^1.0",
+        "ext-simplexml": "*"
     },
     "config": {
         "allow-plugins": {

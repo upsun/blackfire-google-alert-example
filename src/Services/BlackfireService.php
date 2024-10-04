@@ -4,29 +4,27 @@ namespace App\Services;
 
 
 use App\Entity\Feed;
-use App\Repository\FeedRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class BlackfireService
 {
     public function __construct(
-        private string                 $blackfireServerId,
-        private string                 $blackfireServerToken,
-        private HttpClientInterface    $client,
-    )
-    {
+        private string              $blackfireServerId,
+        private string              $blackfireServerToken,
+        private HttpClientInterface $client,
+    ) {
     }
 
     /**
-     * Spot markers on corresponding Blackfire Timeline
+     * Spot a marker on your Blackfire Timeline.
+     * This needs 2 envVars: BLACKFIRE_SERVER_ID and BLACKFIRE_SERVER_TOKEN
      * @param Feed $feed
      * @return void
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function addBlackfireMarker(Feed $feed): void
     {
-        $response = $this->client->request(
+        $this->client->request(
             'POST',
             'https://blackfire.io/api/v1/events',
             [
@@ -38,8 +36,6 @@ class BlackfireService
                 'json' => ['name' => $feed->getTitle(), 'timestamp' => $feed->getPublished()->getTimestamp()]
             ]
         );
-
-//        var_dump("CURL REQUEST",json_encode($feed->getTitle()), $response->getStatusCode());
     }
 
     /**
@@ -47,7 +43,7 @@ class BlackfireService
      *  - remove HTML tags
      *  - decode HTML special chars
      *  - replace accents
-     *  - return only the 64 first characters 
+     *  - return only the 64 first characters
      * @param string $title
      * @return string
      */
@@ -57,6 +53,11 @@ class BlackfireService
         return substr($title, 0, 64);
     }
 
+    /**
+     * Function to remove accents and other special characters
+     * @param $str
+     * @return array|string|string[]
+     */
     private function removeAccents($str)
     {
         $a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð',

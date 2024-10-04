@@ -11,21 +11,21 @@
 
 namespace App\Command;
 
+use App\Services\BlackfireGoogleAlert;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Services\BlackfireGoogleAlerts;
 
 #[AsCommand(
     name: 'blackfire:import-google-alerts',
-    description: 'Import Google RSS Feed and spot corresponding Blackfire Marjers on your timeline',
+    description: 'Import Google RSS Feed and spot corresponding Blackfire Markers on your timeline',
 )]
-class GoogleAlertToBlackfireCommand extends Command
+class GoogleAlertToBlackfireMarkerCommand extends Command
 {
     public function __construct(
-        private BlackfireGoogleAlerts $blackfireGoogleAlerts,
+        private BlackfireGoogleAlert $blackfireGoogleAlerts,
     )
     {
         parent::__construct();
@@ -34,13 +34,14 @@ class GoogleAlertToBlackfireCommand extends Command
     protected function configure(): void
     {
     }
+    
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->blackfireGoogleAlerts->processRssFeed();
+        $count = $this->blackfireGoogleAlerts->processRssFeed();
 
-        $io->success('Feeds imported');
+        $io->success("$count Feeds imported");
 
         return Command::SUCCESS;
     }
