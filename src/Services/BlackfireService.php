@@ -22,9 +22,9 @@ class BlackfireService
      * @return void
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function addBlackfireMarker(Feed $feed): void
+    public function addBlackfireMarker(Feed $feed): int
     {
-        $this->client->request(
+        $response = $this->client->request(
             'POST',
             'https://blackfire.io/api/v1/events',
             [
@@ -36,6 +36,8 @@ class BlackfireService
                 'json' => ['name' => $feed->getTitle(), 'timestamp' => $feed->getPublished()->getTimestamp()]
             ]
         );
+        
+        return $response->getStatusCode();
     }
 
     /**

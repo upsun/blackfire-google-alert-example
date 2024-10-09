@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class BlackfireGoogleAlert
 {
     public function __construct(
-        private string                 $rssFeed,
+        private readonly string        $rssFeed,
         private EntityManagerInterface $entityManager,
         private FeedRepository         $feedRepository,
         private BlackfireService       $blackfireService
@@ -25,13 +25,14 @@ class BlackfireGoogleAlert
             $googleId = $entry->id;
             if ($this->feedRepository->findBy(['googleId' => $googleId]) == null) {
                 $feed = $this->createFeed($entry);
-                $this->blackfireService->addBlackfireMarker($feed);
-                $this->setFeedAsSpoted($feed);
+                if ($this->blackfireService->addBlackfireMarker($feed) == 201) { // Created
+                    $this->setFeedAsSpoted($feed);
+                }
             }
         }
 
         $this->entityManager->flush();
-        
+
         return count($rssFeeds->entry);
     }
 
@@ -45,10 +46,10 @@ class BlackfireGoogleAlert
     {
         $url = $this->extractUrl($entry);
         $domainName = $this->extractDomain($url);
-        
+
         $feed = new Feed();
         $feed->setGoogleId($entry->id);
-        $feed->setTitle($this->blackfireService->sanitizeString($domainName.'|'.$entry->title));
+        $feed->setTitle($this->blackfireService->sanitizeString($domainName . '|' . $entry->title));
         $feed->setLink($url);
         $feed->setPublished(new \DateTime($entry->published));
         $feed->setUpdated(new \DateTime($entry->updated));
@@ -56,7 +57,7 @@ class BlackfireGoogleAlert
         $feed->setAuthor($entry->author->name);
 
         $this->entityManager->persist($feed);
-        
+
         return $feed;
     }
 
