@@ -38,6 +38,9 @@ class Feed
     #[ORM\Column(options: ["default" => false])]
     private bool $markerDone = false;
 
+    #[ORM\Column(length: 255)]
+    private ?string $source_name = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,5 +140,22 @@ class Feed
         $this->markerDone = $markerDone;
 
         return $this;
+    }
+
+    public function getSourceName(): ?string
+    {
+        return $this->source_name;
+    }
+
+    public function setSourceName(string $source_name): static
+    {
+        $this->source_name = $source_name;
+
+        return $this;
+    }
+    
+    public function getBlackfireMarkerTitle(): string
+    {
+        return $this->getSourceName().'|'.$this->getTitle();
     }
 }

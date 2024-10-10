@@ -49,7 +49,8 @@ class BlackfireGoogleAlert
 
         $feed = new Feed();
         $feed->setGoogleId($entry->id);
-        $feed->setTitle($this->blackfireService->sanitizeString($domainName . '|' . $entry->title));
+        $feed->setTitle($this->blackfireService->sanitizeString($entry->title));
+        $feed->setSourceName($domainName);
         $feed->setLink($url);
         $feed->setPublished(new \DateTime($entry->published));
         $feed->setUpdated(new \DateTime($entry->updated));

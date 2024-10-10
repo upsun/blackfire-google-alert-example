@@ -16,12 +16,12 @@ applications:
             extensions:
                 - apcu
                 - blackfire
-                - ctype
-                - iconv
                 - mbstring
+                - pdo_sqlite
                 - sodium
                 - xsl
                 
+
         variables:
             php:
                 opcache.preload: config/preload.php
@@ -37,7 +37,7 @@ applications:
 
         mounts:
             "/var": { source: storage, source_path: var }
-            
+            "/data": { source: storage, source_path: "data" }
 
         
         hooks:
@@ -58,8 +58,5 @@ applications:
                 # Check that no security issues have been found for PHP packages deployed in production
                 spec: '50 23 * * *'
                 cmd: if [ "$PLATFORM_ENVIRONMENT_TYPE" = "production" ]; then croncape COMPOSER_ROOT_VERSION=1.0.0 COMPOSER_AUDIT_ABANDONED=ignore composer audit --no-cache; fi
-            
-            google-alerts-import:
-                spec: '* * * * *'
-                cmd: php bin/console blackfire:import-google-alerts
+
         

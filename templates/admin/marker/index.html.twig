@@ -1,0 +1,74 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_id 'admin_marker_index' %}
+
+{% block main %}
+    <h1>{{ 'title.marker_list'|trans }}</h1>
+
+    <h3>{{ 'title.marker_list_manual'|trans }}</h3>
+    <table class="table table-striped table-middle-aligned table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">{{ 'label.title'|trans }}</th>
+                <th scope="col">{{ 'label.description'|trans }}</th>
+                <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> {{ 'label.marker_date'|trans }}</th>
+                <th scope="col">{{ 'label.author'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for marker in markers %}
+            <tr>
+                <td>{{ marker.title }}</td>
+                <td>{{ marker.description }}</td>
+                <td>{{ marker.date|format_datetime('medium', 'short', '', 'UTC') }}</td>
+                <td>{{ marker.author }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4" align="center">{{ 'marker.no_markers_found'|trans }}</td>
+           </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    
+    <h3>{{ 'title.marker_list_feeds'|trans }}</h3>
+    <a href="{{ rssFeed }}" target="_blank">{{ rssFeed }}</a>
+    <table class="table table-striped table-middle-aligned table-borderless">
+        <thead>
+        <tr>
+            <th scope="col">{{ 'label.title'|trans }}</th>
+            <th scope="col">{{ 'label.description'|trans }}</th>
+            <th scope="col"><i class="fa fa-calendar" aria-hidden="true"></i> {{ 'label.marker_date'|trans }}</th>
+            <th scope="col">{{ 'label.author'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for feed in feeds %}
+            <tr>
+                <td><a class="info" href="{{ feed.link }}" target="_blank">{{ feed.title }}</a></td>
+                <td>{{ feed.content | raw }}</td>
+                <td>{{ feed.published|format_datetime('medium', 'short', '', 'UTC') }}</td>
+                <td>{{ feed.sourceName }}{% if feed.author %} - {{ feed.author }}{% endif %}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" align="center">{{ 'marker.no_markers_found'|trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="section actions">
+        <a href="{{ path('admin_marker_new') }}" class="btn btn-lg btn-block btn-success">
+            <i class="fa fa-plus" aria-hidden="true"></i> {{ 'action.create_marker'|trans }}
+        </a>
+    </div>
+
+    {{ parent() }}
+
+    {{ show_source_code(_self) }}
+{% endblock %}

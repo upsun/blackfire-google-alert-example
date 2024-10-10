@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use App\Entity\Feed;
+use App\Entity\Marker;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class BlackfireService
@@ -22,7 +23,7 @@ class BlackfireService
      * @return void
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function addBlackfireMarker(Feed $feed): int
+    public function addBlackfireMarker(Feed|Marker $object): int
     {
         $response = $this->client->request(
             'POST',
@@ -33,7 +34,7 @@ class BlackfireService
                     'Content-type' => 'application/json',
                     'Authorization' => 'Basic ' . base64_encode($this->blackfireServerId . ':' . $this->blackfireServerToken),
                 ],
-                'json' => ['name' => $feed->getTitle(), 'timestamp' => $feed->getPublished()->getTimestamp()]
+                'json' => ['name' => substr($object->getBlackfireMarkerTitle(), 0, 64), 'timestamp' => $object->getPublished()->getTimestamp()]
             ]
         );
         
@@ -51,8 +52,7 @@ class BlackfireService
      */
     public function sanitizeString(string $title): string
     {
-        $title = $this->removeAccents(strip_tags(htmlspecialchars_decode($title)));
-        return substr($title, 0, 64);
+        return $this->removeAccents(strip_tags(htmlspecialchars_decode($title)));
     }
 
     /**
