@@ -508,6 +508,11 @@
                 <source>action.back_to_marker_list</source>
                 <target>Return to Marker List</target>
             </trans-unit>
+            <trans-unit id="marker.no_rss_feed_found">
+                <source>marker.no_rss_feed_found</source>
+                <target>No active RSS Feed found</target>
+            </trans-unit>
+            
             
             <!-- Rss Feeds -->
             <trans-unit id="title.rss_feed_list">
@@ -533,6 +538,10 @@
             <trans-unit id="action.back_rss_feed_to_list">
                 <source>action.back_rss_feed_to_list</source>
                 <target>Back to the RSS Feed list</target>
+            </trans-unit>
+            <trans-unit id="action.show_rss_feed_list">
+                <source>action.show_rss_feed_list</source>
+                <target>Show the RSS Feed list</target>
             </trans-unit>
             <trans-unit id="action.delete_rss_feed">
                 <source>action.delete_rss_feed</source>
