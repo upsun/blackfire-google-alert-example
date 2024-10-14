@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241014135935 extends AbstractMigration
+final class Version20241014135936 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -28,6 +28,7 @@ final class Version20241014135935 extends AbstractMigration
         $this->addSql('DROP TABLE IF EXISTS symfony_demo_post');
         $this->addSql('DROP TABLE IF EXISTS symfony_demo_post_tag');
         $this->addSql('DROP TABLE IF EXISTS symfony_demo_tag');
+        $this->addSql('CREATE TABLE IF NOT EXISTS symfony_demo_user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, full_name VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles CLOB NOT NULL)');
         $this->addSql('CREATE TEMPORARY TABLE __temp__symfony_demo_user AS SELECT id, full_name, username, email, password, roles FROM symfony_demo_user');
         $this->addSql('DROP TABLE IF EXISTS symfony_demo_user');
         $this->addSql('CREATE TABLE symfony_demo_user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, full_name VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles CLOB NOT NULL)');
