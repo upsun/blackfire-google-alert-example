@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241014135934 extends AbstractMigration
+final class Version20241014135935 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -50,11 +50,11 @@ final class Version20241014135934 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_6ABC1CC44B89032C ON symfony_demo_post_tag (post_id)');
         $this->addSql('CREATE TABLE symfony_demo_tag (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL COLLATE "BINARY")');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_4D5855405E237E06 ON symfony_demo_tag (name)');
-        $this->addSql('DROP TABLE feed');
-        $this->addSql('DROP TABLE marker');
-        $this->addSql('DROP TABLE rss_feed');
+        $this->addSql('DROP TABLE IF EXISTS feed');
+        $this->addSql('DROP TABLE IF EXISTS marker');
+        $this->addSql('DROP TABLE IF EXISTS rss_feed');
         $this->addSql('CREATE TEMPORARY TABLE __temp__symfony_demo_user AS SELECT id, full_name, username, email, password, roles FROM symfony_demo_user');
-        $this->addSql('DROP TABLE symfony_demo_user');
+        $this->addSql('DROP TABLE IF EXISTS symfony_demo_user');
         $this->addSql('CREATE TABLE symfony_demo_user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, full_name VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles CLOB NOT NULL --(DC2Type:json)
         )');
         $this->addSql('INSERT INTO symfony_demo_user (id, full_name, username, email, password, roles) SELECT id, full_name, username, email, password, roles FROM __temp__symfony_demo_user');
