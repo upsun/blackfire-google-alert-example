@@ -37,6 +37,7 @@ final class MarkerController extends AbstractController
     /**
      * Lists all (manual) Blackfire Markers entities.
      */
+    #[Route('/', name: 'admin_index', methods: ['GET'])]
     #[Route('/', name: 'admin_marker_index', methods: ['GET'])]
     public function index(
         MarkerRepository $markers,
