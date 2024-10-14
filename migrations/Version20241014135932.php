@@ -24,10 +24,10 @@ final class Version20241014135932 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_234044AB59561942 ON feed (rss_feed_id)');
         $this->addSql('CREATE TABLE marker (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, title VARCHAR(64) NOT NULL, description CLOB DEFAULT NULL, date DATETIME NOT NULL, link VARCHAR(1024) DEFAULT NULL, author VARCHAR(255) NOT NULL)');
         $this->addSql('CREATE TABLE rss_feed (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL, url VARCHAR(1024) NOT NULL, active BOOLEAN NOT NULL)');
-        $this->addSql('DROP TABLE symfony_demo_comment');
-        $this->addSql('DROP TABLE symfony_demo_post');
-        $this->addSql('DROP TABLE symfony_demo_post_tag');
-        $this->addSql('DROP TABLE symfony_demo_tag');
+        $this->addSql('DROP TABLE IF EXISTS symfony_demo_comment');
+        $this->addSql('DROP TABLE IF EXISTS symfony_demo_post');
+        $this->addSql('DROP TABLE IF EXISTS symfony_demo_post_tag');
+        $this->addSql('DROP TABLE IF EXISTS symfony_demo_tag');
         $this->addSql('CREATE TEMPORARY TABLE __temp__symfony_demo_user AS SELECT id, full_name, username, email, password, roles FROM symfony_demo_user');
         $this->addSql('DROP TABLE symfony_demo_user');
         $this->addSql('CREATE TABLE symfony_demo_user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, full_name VARCHAR(255) NOT NULL, username VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, roles CLOB NOT NULL)');
