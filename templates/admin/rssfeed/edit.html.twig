@@ -1,0 +1,23 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body_id 'admin_rss_feed_edit' %}
+
+{% block main %}
+    <h1>{{ 'title.edit_rss_feed'|trans({'id': rss_feed.id}) }}</h1>
+
+    {{ include('admin/rssfeed/_form.html.twig', {
+        form: form,
+        button_label: 'action.save'|trans,
+        include_back_to_home_link: true,
+    }, with_context = false) }}
+{% endblock %}
+
+{% block sidebar %}
+    <div class="section actions">
+        {{ include('admin/rssfeed/_delete_form.html.twig', {rss_feed: rss_feed}, with_context = false) }}
+    </div>
+
+    {{ parent() }}
+
+    {{ show_source_code(_self) }}
+{% endblock %}

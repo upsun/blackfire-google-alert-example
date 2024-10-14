@@ -6,7 +6,6 @@
 parameters:
     locale: 'en'
     app.notifications.email_sender: anonymous@example.com
-    google_rss_feed: '%env(GOOGLE_RSS_ALERT)%'
     blackfire_server_id: '%env(BLACKFIRE_SERVER_ID)%'
     blackfire_server_token: '%env(BLACKFIRE_SERVER_TOKEN)%'
 
@@ -21,7 +20,6 @@ services:
             # it here you can use the #[Autowire] attribute to inject it manually in the service constructor
             array $enabledLocales: '%kernel.enabled_locales%'
             string $defaultLocale: '%locale%'
-            string $rssFeed: '%google_rss_feed%'
             string $blackfireServerId: '%blackfire_server_id%'
             string $blackfireServerToken: '%blackfire_server_token%'
 

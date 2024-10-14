@@ -11,10 +11,12 @@
 
 namespace App\Form;
 
-use App\Entity\Post;
+use App\Entity\Marker;
+use App\Entity\RssFeed;
 use App\Form\Type\DateTimePickerType;
 use App\Form\Type\TagsInputType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -23,17 +25,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
- * Defines the form used to create and manipulate blog posts.
+ * Defines the form used to create and manipulate feeds.
  *
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  * @author Yonel Ceruto <yonelceruto@gmail.com>
  */
-final class PostType extends AbstractType
+final class RssFeedType extends AbstractType
 {
     // Form types are services, so you can inject other services in them if needed
     public function __construct(
-        private readonly SluggerInterface $slugger
+        //private readonly SluggerInterface $slugger
     ) {
     }
 
@@ -49,44 +51,25 @@ final class PostType extends AbstractType
         // $builder->add('title', null, ['required' => false, ...]);
 
         $builder
-            ->add('title', null, [
+            ->add('name', null, [
                 'attr' => ['autofocus' => true],
-                'label' => 'label.title',
+                'label' => 'label.name',
             ])
-            ->add('summary', TextareaType::class, [
-                'help' => 'help.post_summary',
-                'label' => 'label.summary',
+            ->add('url', null, [
+                'label' => 'label.url',
+                'required' => true,
             ])
-            ->add('content', null, [
-                'attr' => ['rows' => 20],
-                'help' => 'help.post_content',
-                'label' => 'label.content',
-            ])
-            ->add('publishedAt', DateTimePickerType::class, [
-                'label' => 'label.published_at',
-                'help' => 'help.post_publication',
-            ])
-            ->add('tags', TagsInputType::class, [
-                'label' => 'label.tags',
+            ->add('active', CheckboxType::class, [
+                'label' => 'label.active',
                 'required' => false,
             ])
-            // form events let you modify information or fields at different steps
-            // of the form handling process.
-            // See https://symfony.com/doc/current/form/events.html
-            ->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-                /** @var Post $post */
-                $post = $event->getData();
-                if (null === $post->getSlug() && null !== $post->getTitle()) {
-                    $post->setSlug($this->slugger->slug($post->getTitle())->lower());
-                }
-            })
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Post::class,
+            'data_class' => RssFeed::class,
         ]);
     }
 }

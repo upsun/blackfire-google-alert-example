@@ -4,14 +4,16 @@ namespace App\Services;
 
 
 use App\Entity\Feed;
+use App\Entity\RssFeed;
 use App\Repository\FeedRepository;
+use App\Repository\RssFeedRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class BlackfireGoogleAlert
 {
     public function __construct(
-        private readonly string        $rssFeed,
         private EntityManagerInterface $entityManager,
+        private RssFeedRepository      $rssFeedRepository,
         private FeedRepository         $feedRepository,
         private BlackfireService       $blackfireService
     )
@@ -20,29 +22,35 @@ class BlackfireGoogleAlert
 
     public function processRssFeed(): int
     {
-        $rssFeeds = simplexml_load_file($this->rssFeed);
-        foreach ($rssFeeds->entry as $entry) {
-            $googleId = $entry->id;
-            if ($this->feedRepository->findBy(['googleId' => $googleId]) == null) {
-                $feed = $this->createFeed($entry);
-                if ($this->blackfireService->addBlackfireMarker($feed) == 201) { // Created
-                    $this->setFeedAsSpoted($feed);
+        $rssFeeds = $this->rssFeedRepository->findBy(['active' => true]);
+        $count = 0;
+        foreach ($rssFeeds as $rssFeed) {
+            $feeds = simplexml_load_file($rssFeed->getUrl());
+
+            foreach ($feeds->entry as $entry) {
+                $googleId = $entry->id;
+                if ($this->feedRepository->findBy(['googleId' => $googleId]) == null) {
+                    $feed = $this->createFeed($entry, $rssFeed);
+                    if ($this->blackfireService->addBlackfireMarker($feed) == 201) { // Created
+                        $this->setFeedAsSpoted($feed);
+                    }
+                    $count++;
                 }
             }
         }
-
         $this->entityManager->flush();
 
-        return count($rssFeeds->entry);
+        return $count;
     }
 
     /**
      * Function to create new Feed from Google Alert entry
      * @param \SimpleXMLElement $entry
+     * @param RssFeed $rssFeed
      * @return Feed
      * @throws \Exception
      */
-    private function createFeed(\SimpleXMLElement $entry): Feed
+    private function createFeed(\SimpleXMLElement $entry, RssFeed $rssFeed): Feed
     {
         $url = $this->extractUrl($entry);
         $domainName = $this->extractDomain($url);
@@ -56,9 +64,13 @@ class BlackfireGoogleAlert
         $feed->setUpdated(new \DateTime($entry->updated));
         $feed->setContent($entry->content);
         $feed->setAuthor($entry->author->name);
-
+        $feed->setRssFeed($rssFeed);
+        
         $this->entityManager->persist($feed);
 
+        $rssFeed->addFeed($feed);
+        $this->entityManager->persist($rssFeed);
+        
         return $feed;
     }
 

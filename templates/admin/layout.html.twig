@@ -13,6 +13,11 @@
 {% endblock %}
 
 {% block header_navigation_links %}
+    <li class="nav-item{{ _route in ['admin_rss_feed_index'] ? ' active' : '' }}">
+        <a class="nav-link" href="{{ path('admin_rss_feed_index') }}">
+            <i class="fa fa-list-alt" aria-hidden="true"></i> {{ 'menu.rss_feed_list'|trans }}
+        </a>
+    </li>
     <li class="nav-item{{ _route in ['admin_index', 'admin_marker_index'] ? ' active' : '' }}">
         <a class="nav-link" href="{{ path('admin_marker_index') }}">
             <i class="fa fa-list-alt" aria-hidden="true"></i> {{ 'menu.marker_list'|trans }}

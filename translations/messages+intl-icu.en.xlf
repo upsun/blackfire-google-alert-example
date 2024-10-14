@@ -58,7 +58,7 @@
 
             <trans-unit id="title.homepage">
                 <source>title.homepage</source>
-                <target><![CDATA[Welcome to the <strong>Symfony Demo</strong> application]]></target>
+                <target><![CDATA[Welcome to the <strong>Symfony RSS Feed to </strong> application]]></target>
             </trans-unit>
             <trans-unit id="title.source_code">
                 <source>title.source_code</source>
@@ -447,7 +447,7 @@
                 <target>(current)</target>
             </trans-unit>
             
-            
+            <!-- Markers -->
             <trans-unit id="title.marker_list">
                 <source>title.marker_list</source>
                 <target>Blackfire Marker List</target>
@@ -458,7 +458,7 @@
             </trans-unit>
             <trans-unit id="title.marker_list_feeds">
                 <source>title.marker_list_feeds</source>
-                <target>From Google alert RSS Feed (auto)</target>
+                <target>From RSS Feeds (auto)</target>
             </trans-unit>
             <trans-unit id="menu.marker_list">
                 <source>menu.marker_list</source>
@@ -507,6 +507,84 @@
             <trans-unit id="action.back_to_marker_list">
                 <source>action.back_to_marker_list</source>
                 <target>Return to Marker List</target>
+            </trans-unit>
+            
+            <!-- Rss Feeds -->
+            <trans-unit id="title.rss_feed_list">
+                <source>title.rss_feed_list</source>
+                <target>RSS Feed List</target>
+            </trans-unit>
+            <trans-unit id="title.edit_rss_feed">
+                <source>title.edit_rss_feed</source>
+                <target>Edit RSS Feed</target>
+            </trans-unit>
+            <trans-unit id="menu.rss_feed_list">
+                <source>menu.rss_feed_list</source>
+                <target>RSS Feed List</target>
+            </trans-unit>
+            <trans-unit id="rss_feed.no_rss_feeds_found">
+                <source>rss_feed.no_rss_feeds_found</source>
+                <target>No RSS Feed found</target>
+            </trans-unit>
+            <trans-unit id="action.create_rss_feed">
+                <source>action.create_rss_feed</source>
+                <target>Add a New RSS Feed</target>
+            </trans-unit>
+            <trans-unit id="action.back_rss_feed_to_list">
+                <source>action.back_rss_feed_to_list</source>
+                <target>Back to the RSS Feed list</target>
+            </trans-unit>
+            <trans-unit id="action.delete_rss_feed">
+                <source>action.delete_rss_feed</source>
+                <target>Delete RSS Feed</target>
+            </trans-unit>
+            <trans-unit id="delete_rss_feed_modal.title">
+                <source>delete_rss_feed_modal.title</source>
+                <target>Are you sure you want to delete this RSS Feed?</target>
+            </trans-unit>
+            <trans-unit id="delete_rss_feed_modal.body">
+                <source>delete_rss_feed_modal.body</source>
+                <target>This action cannot be undone.</target>
+            </trans-unit>
+            <trans-unit id="label.delete_rss_feed">
+                <source>label.delete_rss_feed</source>
+                <target>Delete RSS Feed</target>
+            </trans-unit>
+            <trans-unit id="rss_feed.created_successfully">
+                <source>rss_feed.created_successfully</source>
+                <target>RSS Feed successfully created</target>
+            </trans-unit>
+            <trans-unit id="rss_feed.updated_successfully">
+                <source>rss_feed.updated_successfully</source>
+                <target>RSS Feed successfully updated</target>
+            </trans-unit>
+            <trans-unit id="rss_feed.deleted_successfully">
+                <source>rss_feed.deleted_successfully</source>
+                <target>RSS Feed successfully removed</target>
+            </trans-unit>
+            <trans-unit id="title.rss_feed_new">
+                <source>title.rss_feed_new</source>
+                <target>Add a new RSS Feed</target>
+            </trans-unit>
+            <trans-unit id="label.create_rss_feed">
+                <source>label.create_rss_feed</source>
+                <target>Create a new RSS Feed</target>
+            </trans-unit>
+            <trans-unit id="label.name">
+                <source>label.name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="label.url">
+                <source>label.url</source>
+                <target>URL</target>
+            </trans-unit>
+            <trans-unit id="label.active">
+                <source>label.active</source>
+                <target>Active</target>
+            </trans-unit>
+            <trans-unit id="action.back_to_rss_feed_list">
+                <source>action.back_to_rss_feed_list</source>
+                <target>Return to RSS Feed List</target>
             </trans-unit>
         </body>
     </file>

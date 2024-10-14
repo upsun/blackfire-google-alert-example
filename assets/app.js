@@ -12,7 +12,7 @@ import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/tab';
 import 'bootstrap/js/dist/modal';
-import 'jquery'
+import $ from 'jquery';
 
 // loads the code syntax highlighting library
 import './js/highlight.js';
@@ -21,4 +21,7 @@ import './js/highlight.js';
 import './js/doclinks.js';
 
 import './js/flatpicker.js';
-
+$('#rssFeeds button').on('click', function (event) {
+    event.preventDefault()
+    $(this).tab('show')
+})

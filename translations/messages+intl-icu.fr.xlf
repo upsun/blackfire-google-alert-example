@@ -442,9 +442,6 @@
                 <target>Suivant</target>
             </trans-unit>
             
-            
-            
-            
             <trans-unit id="title.marker_list">
                 <source>title.marker_list</source>
                 <target>Liste des Marqueurs Blackfire</target>
@@ -455,7 +452,7 @@
             </trans-unit>
             <trans-unit id="title.marker_list_feeds">
                 <source>title.marker_list_feeds</source>
-                <target>Importés depuis Google alert RSS Feed (auto)</target>
+                <target>Importés depuis des fils RSS (auto)</target>
             </trans-unit>
             <trans-unit id="menu.marker_list">
                 <source>menu.marker_list</source>

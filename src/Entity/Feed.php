@@ -41,6 +41,10 @@ class Feed
     #[ORM\Column(length: 255)]
     private ?string $source_name = null;
 
+    #[ORM\ManyToOne(inversedBy: 'feeds')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?RssFeed $rssFeed = null;
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -157,5 +161,17 @@ class Feed
     public function getBlackfireMarkerTitle(): string
     {
         return $this->getSourceName().'|'.$this->getTitle();
+    }
+    
+    public function getRssFeed(): ?RssFeed
+    {
+        return $this->rssFeed;
+    }
+    
+    public function setRssFeed(?RssFeed $rssFeed): static
+    {
+        $this->rssFeed = $rssFeed;
+    
+        return $this;
     }
 }
