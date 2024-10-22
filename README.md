@@ -67,9 +67,11 @@
 
 To deploy this repository to Upsun, please following steps from [this blogpost](https://devcenter.upsun.com/posts/blackfire-google-alert-markers/).
 
-Then, the only command you need to use locally is to start your [Symfony server](https://symfony.com/doc/current/setup/symfony_server.html):
+Then, the only command you need to use locally is to start your [Symfony server](https://symfony.com/doc/current/setup/symfony_server.html) and install dependencies using [Composer](https://getcomposer.org/):
 ```
 symfony server:start [-d]
+symfony composer install 
+symfony open:local
 ```
 
 ## Learn
