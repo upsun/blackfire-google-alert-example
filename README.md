@@ -53,7 +53,7 @@
 ## About
 
 <p>
-   We have just created a new Symfony application to import 
+   We have just created a new Symfony application to import Google Alert RSS feed entries on your Blackfire Timeline.
    <BR>The generated code has been setup for a typical web application project hosted on <a href="https://upsun.com/">Upsun</a>.
 </p>
 
